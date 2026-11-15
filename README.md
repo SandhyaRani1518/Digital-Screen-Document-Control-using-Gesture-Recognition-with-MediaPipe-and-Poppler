@@ -77,23 +77,16 @@ This repository provides a public project overview and design notes. It does not
 - `docs/architecture.md` — system components and data flow
 - `docs/controls.md` — hand landmarks, thresholds, and controls
 - `docs/project-scope.md` — implemented features and limitations
+- `docs/references.md` — external technical documentation used for background
 
-## Technical references
+## References
 
-These official documentation pages describe the libraries and tools used in the project:
-
-1. [MediaPipe Hands documentation](https://github.com/google-ai-edge/mediapipe/blob/master/docs/solutions/hands.md)
-2. [OpenCV-Python tutorials](https://docs.opencv.org/5.0/py_tutorials/py_tutorials.html)
-3. [pdf2image documentation](https://pdf2image.readthedocs.io/en/stable/)
-4. [Poppler project](https://poppler.freedesktop.org/)
-5. [NumPy documentation](https://numpy.org/doc/stable/)
-
-Project-specific behavior in this overview is described from the project implementation. The links above are references for the underlying tools, not sources for the project code.
+Technical documentation for the libraries and tools used in this project is listed in [`docs/references.md`](docs/references.md). These links are background references for the dependencies; the project-specific workflow and controls are described from the application's own implementation.
 
 ## Project acknowledgement
 
 This project was developed collaboratively as an academic project.
 
-## License
+## License and reuse
 
-No open-source license has been selected for this repository. Public visibility lets people view the overview on GitHub, but it does not grant general permission to copy, modify, or redistribute these materials. Please contact the project contributors before reusing them.
+This repository does not currently include a separate open-source license. GitHub's terms allow other GitHub users to view and fork public repositories through GitHub. That platform permission is not the same as a general project license granting additional reuse rights elsewhere. Because this was collaborative work, check with the other contributors before adding a license or granting broader permission to copy, modify, or redistribute the project materials. See [GitHub's guide to repository licensing](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository) for an explanation of what the absence of a license means.
