@@ -4,29 +4,28 @@
 
 ### 1. PDF rendering
 
-The application converts a multi-page PDF into images using `pdf2image`, which invokes Poppler. The rendered pages are stored in memory and the active page is shown beside the webcam view.
+The application converts a multi-page PDF into images using `pdf2image`, which calls Poppler utilities. The rendered pages are held in memory, and the active page is displayed beside the webcam feed.
 
 ### 2. Webcam and hand tracking
 
-OpenCV captures webcam frames and mirrors the view. MediaPipe Hands processes each frame and supplies hand landmarks. The supplied implementation tracks one hand.
+OpenCV captures and mirrors webcam frames. MediaPipe Hands processes each frame and returns hand landmarks. The current application tracks one hand.
 
 ### 3. Interaction logic
 
-The application reads three landmarks:
-
+The application uses three hand landmarks:
 - Index fingertip
 - Thumb tip
-- Index-finger MCP
+- Index-finger MCP (metacarpophalangeal joint)
 
-It calculates distances between the fingertip and the other two landmarks. The resulting threshold checks determine whether the pointer is in drawing mode. The fingertip position is also checked against the on-screen control areas.
+It calculates the distances between the index fingertip and the other two landmarks. Threshold checks determine whether drawing mode is active. The fingertip position is also checked against the on-screen control areas.
 
 ### 4. Page and annotation state
 
-The application maintains the current PDF page, selected annotation colour, and a bounded annotation queue for each page and colour. A clear action resets the active page's queues.
+The application stores the active PDF page, the selected annotation colour, and a bounded point queue for each page and colour. The CLEAR control resets the queues for the active page.
 
 ### 5. Rendering and display
 
-Annotation points are smoothed with a moving-average window and drawn onto a copy of the active PDF page. The annotated page and webcam frame are resized and combined into a side-by-side OpenCV window.
+Annotation points are smoothed with a moving-average window and drawn on a copy of the active PDF page. The annotated page and webcam frame are resized and combined in a side-by-side OpenCV window.
 
 ## Data flow
 
@@ -55,8 +54,8 @@ Webcam -> OpenCV -> MediaPipe Hands -> landmarks
 
 ## Runtime behavior
 
-The application reads frames continuously until the user presses `q` in the display window. A cooldown is applied to page, colour, and clear control actions to reduce repeated activations.
+The application processes webcam frames continuously until the user presses `q` in the display window. A cooldown helps prevent repeated activation of page, colour, and clear controls.
 
 ## Design boundaries
 
-The supplied code does not persist annotations, modify the source PDF, or provide zoom, cloud synchronization, or collaborative editing.
+Annotations are temporary and are not written back into the original PDF. The current implementation does not provide persistent annotation storage, zoom, cloud synchronization, or collaborative editing.
