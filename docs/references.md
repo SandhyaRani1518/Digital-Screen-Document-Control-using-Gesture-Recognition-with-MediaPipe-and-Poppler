@@ -1,31 +1,39 @@
 # Technical References
 
-This page lists official documentation for the libraries and tools used by the gesture-based PDF navigation and annotation prototype. These sources explain the underlying tools; the project-specific feature descriptions and workflow are based on the application's own implementation.
+This page lists official documentation for the libraries and tools used by the project. These sources describe the underlying dependencies; the project-specific workflow and controls are documented from the application's implementation.
 
-1. **Google AI Edge / MediaPipe — MediaPipe Hands (Legacy Solutions API).**
+1. **MediaPipe Hands — Legacy Solutions API.**
    https://github.com/google-ai-edge/mediapipe/blob/master/docs/solutions/hands.md
-   Relevant to the application's use of `mp.solutions.hands`, hand landmarks, and the MediaPipe Python Solutions API.
+   The project uses the legacy Python API `mp.solutions.hands` for real-time hand landmark tracking.
 
-2. **OpenCV — OpenCV-Python Tutorials.**
-   https://docs.opencv.org/5.0/py_tutorials/py_tutorials.html
-   Background documentation for image processing, webcam capture, displaying images, and drawing with OpenCV.
+2. **MediaPipe Solutions guide — legacy status and migration.**
+   https://ai.google.dev/edge/mediapipe/solutions/guide
+   Google states that support for MediaPipe Legacy Solutions ended on March 1, 2023. The guide identifies Hand Landmarker as the upgraded solution for hand landmark detection. Migration is a future maintenance task for this project.
 
-3. **Belval — pdf2image documentation.**
+3. **MediaPipe Hand Landmarker — Python guide.**
+   https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker/python
+   Current task-based API documentation for a future migration from the legacy Hands API.
+
+4. **OpenCV-Python tutorials.**
+   https://docs.opencv.org/4.13.0/d6/d00/tutorial_py_root.html
+   Background documentation for image processing, webcam/video capture, display windows, and drawing operations.
+
+5. **pdf2image documentation.**
    https://pdf2image.readthedocs.io/en/stable/
    Documents the Python interface used to convert PDF pages into images.
 
-4. **Poppler — PDF rendering library and utilities.**
+6. **Poppler project.**
    https://poppler.freedesktop.org/
-   Project documentation and downloads for the PDF rendering utilities used by pdf2image.
+   Project site for the PDF rendering utilities used by pdf2image.
 
-5. **NumPy — Official documentation.**
+7. **NumPy documentation.**
    https://numpy.org/doc/stable/
    Reference for array operations and numerical processing used in the application.
 
-6. **GitHub Docs — Licensing a repository.**
+8. **GitHub Docs — licensing a repository.**
    https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository
-   Explains the difference between a public repository and a repository that includes an explicit open-source license.
+   Explains the role of an explicit open-source license and the implications of publishing a repository without one.
 
 ## Attribution note
 
-Library names and links are included to acknowledge the external tools and provide readers with their official documentation. The project overview does not reproduce text or source code from these documentation pages.
+These links acknowledge the external tools and provide their official technical documentation. They are not sources for the project's own code.
