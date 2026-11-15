@@ -1,88 +1,99 @@
-# Digital Screen Document Control Using Gesture Recognition
+# Gesture-Based PDF Navigation and Annotation
 
-A webcam-based, touchless PDF interaction prototype that lets a user navigate document pages and add simple on-screen annotations using hand tracking.
+A webcam-based document interaction prototype that lets users move through PDF pages and add on-screen annotations using hand movements.
 
 ## Overview
 
-The application combines MediaPipe Hands, OpenCV, and Poppler-based PDF rendering. A webcam captures the user's hand, MediaPipe detects hand landmarks, and the application uses fingertip position and landmark distances to trigger document controls and freehand drawing.
+The application uses MediaPipe Hands to track hand landmarks, OpenCV to capture and process webcam frames, and pdf2image with Poppler to render PDF pages. The index fingertip acts as the pointer for document controls and freehand drawing.
 
-The PDF is displayed beside the webcam feed. Annotation strokes are drawn over the rendered page, with a separate in-memory annotation buffer for each page while the application is running.
+The PDF page and webcam feed appear side by side. Annotation strokes are drawn over a copy of the rendered page and are kept separately for each page during the current session.
 
-## Features implemented in the supplied Python source
+## Features
 
-- Render a multi-page PDF into images using `pdf2image` and Poppler.
-- Track one hand using MediaPipe Hands.
-- Navigate to the previous or next PDF page using on-screen LEFT and RIGHT control areas.
-- Draw on the active page using the index fingertip.
-- Select blue, red, or green annotation strokes.
-- Clear annotations on the active page.
-- Keep page-specific annotation buffers during the current run.
-- Smooth drawing paths with a moving-average window.
-- Display the webcam and PDF page side by side.
+- Render multi-page PDF documents as images.
+- Track one hand in real time using MediaPipe Hands.
+- Navigate to the previous or next page using on-screen controls.
+- Draw freehand annotations using the index fingertip.
+- Choose blue, red, or green annotation colours.
+- Clear annotations from the active page.
+- Maintain separate in-memory annotation points for each PDF page.
+- Smooth drawing paths using a moving-average window.
+- Display the PDF and webcam feed side by side.
 
 ## How it works
 
 ```text
-PDF file -> pdf2image / Poppler -> Rendered PDF pages
-                                      |
+PDF document -> pdf2image / Poppler -> Rendered pages
+                                           |
 Webcam -> OpenCV -> MediaPipe Hands -> Hand landmarks
-                                      |
-                          Fingertip position and distances
-                                      |
-                         Page / colour / clear controls
-                                      |
-                                Drawing mode
-                                      |
-                       Per-page annotation buffers
-                                      |
-                         Smoothed annotation overlay
-                                      |
-                      Side-by-side PDF + webcam display
+                                           |
+                               Fingertip position and distances
+                                           |
+                              Page / colour / clear controls
+                                           |
+                                     Drawing mode
+                                           |
+                              Per-page annotation points
+                                           |
+                               Smoothed drawing overlay
+                                           |
+                             Combined PDF + webcam view
 ```
 
 ## Technology stack
 
 - **Python** — application logic
-- **MediaPipe Hands** — real-time hand landmark tracking
-- **OpenCV** — webcam capture, interface rendering, and drawing
+- **MediaPipe Hands** — hand landmark tracking
+- **OpenCV** — webcam capture, image processing, and drawing
 - **NumPy** — image and coordinate calculations
 - **pdf2image** — PDF page conversion
-- **Poppler** — PDF rendering backend
+- **Poppler** — PDF rendering utilities
 
 ## Gesture and control mapping
 
-| On-screen control / movement | Action |
+| Control or movement | Action |
 |---|---|
-| LEFT | Previous PDF page |
-| RIGHT | Next PDF page |
-| CLEAR | Clear annotations on the current page |
-| BLUE / RED / GREEN | Choose the annotation colour |
-| Index fingertip moved in drawing mode | Add a freehand annotation stroke |
+| LEFT | Go to the previous PDF page |
+| RIGHT | Go to the next PDF page |
+| CLEAR | Remove annotations from the active page |
+| BLUE / RED / GREEN | Select the annotation colour |
+| Index fingertip in drawing mode | Add a freehand annotation stroke |
 
-The supplied implementation determines drawing mode using distances between the index fingertip, thumb tip, and index-finger MCP landmark. It uses threshold-based interaction logic rather than a separately trained gesture-classification model.
+Drawing mode is based on distances between the index fingertip, thumb tip, and index-finger MCP landmark. The current implementation uses threshold-based interaction logic; it does not use a separately trained gesture-classification model.
 
-## Project scope and limitations
+## Current scope and limitations
 
-- Annotations are held in memory only for the current application session.
-- The supplied source does not write annotations back into the original PDF.
-- The supplied source does not implement persistent annotation storage, zoom, cloud synchronization, or multi-user collaboration.
+- Annotations remain in memory during the current application session.
+- The application draws over a rendered page; it does not save annotations into the original PDF.
+- Annotation data is not restored after the application closes.
+- The current implementation does not include PDF zoom, cloud synchronization, or multi-user collaboration.
 - Gesture responsiveness can vary with lighting, camera position, webcam quality, and threshold settings.
-- No performance or accuracy figures are claimed by this overview; measured results require a documented and repeatable test procedure.
+- No measured accuracy or performance figures are stated here. Any such figures should be supported by a repeatable test procedure.
 
-## Public repository scope
+## Repository contents
 
-This repository is a **public project overview**. It contains the project explanation and high-level design notes, not the original implementation source, full academic paper, abstract, or team documents.
+This repository provides a public project overview and design notes. It does not contain the original implementation files or the complete academic paper.
 
-## Project areas
-
-- `docs/architecture.md` — component architecture and data flow
+- `docs/architecture.md` — system components and data flow
 - `docs/controls.md` — hand landmarks, thresholds, and controls
-- `docs/project-scope.md` — included functionality and current boundaries
+- `docs/project-scope.md` — implemented features and limitations
 
-## Credits and permissions
+## Technical references
 
-The underlying project was developed as a collaborative academic project. This overview intentionally omits personal contact details and does not redistribute team documents. Before publishing implementation files, screenshots, or publication material, confirm that you have permission to share them and that any co-authors' rights and privacy are respected.
+These official documentation pages describe the libraries and tools used in the project:
+
+1. [MediaPipe Hands documentation](https://github.com/google-ai-edge/mediapipe/blob/master/docs/solutions/hands.md)
+2. [OpenCV-Python tutorials](https://docs.opencv.org/5.0/py_tutorials/py_tutorials.html)
+3. [pdf2image documentation](https://pdf2image.readthedocs.io/en/stable/)
+4. [Poppler project](https://poppler.freedesktop.org/)
+5. [NumPy documentation](https://numpy.org/doc/stable/)
+
+Project-specific behavior in this overview is described from the project implementation. The links above are references for the underlying tools, not sources for the project code.
+
+## Project acknowledgement
+
+This project was developed collaboratively as an academic project.
 
 ## License
 
-No reuse license is granted by this overview. Add a license only after confirming the relevant ownership and permissions.
+No open-source license has been selected for this repository. Public visibility lets people view the overview on GitHub, but it does not grant general permission to copy, modify, or redistribute these materials. Please contact the project contributors before reusing them.
