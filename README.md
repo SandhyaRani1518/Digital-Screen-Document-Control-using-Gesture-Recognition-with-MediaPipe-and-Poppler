@@ -59,7 +59,7 @@ Webcam -> OpenCV -> MediaPipe Hands -> Hand landmarks
 | BLUE / RED / GREEN | Select the annotation colour |
 | Index fingertip in drawing mode | Add a freehand annotation stroke |
 
-Drawing mode is based on distances between the index fingertip, thumb tip, and index-finger MCP landmark. The current implementation uses threshold-based interaction logic; it does not use a separately trained gesture-classification model.
+Drawing mode is based on distances between the index fingertip, thumb tip, and index-finger MCP landmark. The current implementation uses threshold-based interaction logic; it does not use a separately trained gesture-classification model. It uses MediaPipe's legacy Solutions API (`mp.solutions.hands`), which Google no longer supports as of March 1, 2023. Migrating to the MediaPipe Hand Landmarker task is a recommended future maintenance step. See the [MediaPipe migration and legacy-solutions guide](https://ai.google.dev/edge/mediapipe/solutions/guide).
 
 ## Current scope and limitations
 
@@ -77,7 +77,7 @@ This repository provides a public project overview and design notes. It does not
 - `docs/architecture.md` — system components and data flow
 - `docs/controls.md` — hand landmarks, thresholds, and controls
 - `docs/project-scope.md` — implemented features and limitations
-- `docs/references.md` — external technical documentation used for background
+- `docs/references.md` — official library documentation and API status
 
 ## References
 
